@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Airbnb NYC Pricing Analysis</title>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+    <main class="layout">
+      <header class="hero">
+        <p class="eyebrow">Data Visualization Project Group 70</p>
+        <h1>An Analysis of Airbnb Pricing in New York City</h1>
+        <p class="lead">
+          This project studies how location and room type shape Airbnb prices
+          across NYC. The goal is to identify pricing patterns and reveal how
+          the short term rental market varies by borough.
+        </p>
+      </header>
+
+      <section class="panel" id="introduction">
+        <h2>Introduction</h2>
+        <p>
+          Analyzing Airbnb data in NYC provides insight into how price,
+          neighborhood, location, and room type shape the city&rsquo;s short
+          term housing market. NYC has boroughs and neighborhoods with very
+          different demand patterns, so listing prices vary significantly across
+          space and property type. This analysis highlights how tourism
+          activity, neighborhood popularity, and listing characteristics
+          influence market outcomes.
+        </p>
+        <p>
+          This topic is important because Airbnb has transformed urban tourism
+          and local housing markets. Understanding pricing patterns helps hosts
+          choose better listing strategies, helps travelers compare options, and
+          gives policymakers evidence to evaluate housing and rental impacts in
+          local communities.
+        </p>
+      </section>
+
+      <section class="panel" id="data-intro">
+        <h2>Introduction to the Data</h2>
+        <p>
+          <strong>Dataset used:</strong>
+          <a
+            href="https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data"
+            >Kaggle Link</a
+          >
+        </p>
+        <p>
+          <strong>Data size:</strong> original dataset has 48,895 rows. After
+          cleaning the data, 5,000 rows are used for our visualizations.
+        </p>
+        <p>
+          <strong>Main attributes:</strong> id, name, host_id, host_name,
+          neighbourhood_group, neighbourhood, latitude, longitude, room_type,
+          price, minimum_nights, number_of_reviews, last_review,
+          reviews_per_month, calculated_host_listings_count, availability_365.
+        </p>
+      </section>
+
+      <section class="panel viz" id="viz1">
+        <h2>Visualization 1: Average Price by Borough</h2>
+        <p class="instructions">
+          <strong>Interaction instructions:</strong> Use the dropdown inside the
+          chart to switch between All, Entire home/apt, Private room, and Shared
+          room. Hover on bars to see exact average price values.
+        </p>
+        <div id="chartWrap">
+          <iframe
+            src="viz1_from_notebook.html"
+            title="Average Airbnb price by borough from notebook"
+            class="chart-frame"
+            loading="lazy"
+          ></iframe>
+        </div>
+        <p class="takeaway">
+          <strong>Takeaway:</strong> Manhattan consistently has the highest
+          average prices, while outer boroughs are generally more affordable,
+          especially for private and shared rooms.
+        </p>
+      </section>
+
+      <section class="panel viz placeholder" id="viz2">
+        <h2>Visualization 2 Placeholder</h2>
+        <p class="instructions">
+          <strong>Interaction instructions:</strong> Add...
+        </p>
+        <div class="placeholder-box">Add...</div>
+        <p class="takeaway"><strong>Takeaway:</strong> Add...</p>
+      </section>
+
+      <section class="panel viz placeholder" id="viz3">
+        <h2>Visualization 3 Placeholder</h2>
+        <p class="instructions">
+          <strong>Interaction instructions:</strong> Add...
+        </p>
+        <div class="placeholder-box">Add...</div>
+        <p class="takeaway"><strong>Takeaway:</strong> Add...</p>
+      </section>
+
+      <section class="panel viz placeholder" id="viz4">
+        <h2>Visualization 4 Placeholder</h2>
+        <p class="instructions">
+          <strong>Interaction instructions:</strong> Add...
+        </p>
+        <div class="placeholder-box">Add...</div>
+        <p class="takeaway"><strong>Takeaway:</strong> Add...</p>
+      </section>
+
+      <section class="panel" id="conclusion">
+        <h2>Conclusion</h2>
+        <p>
+          Across NYC's boroughs, Airbnb prices follow predictable patterns —
+          location is the biggest factor, and room type creates further price
+          differences. These insights are useful for hosts setting prices,
+          travelers budgeting their stay, and policymakers regulating short term
+          rentals in the city.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

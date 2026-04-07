@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.1.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-0c84ee3d6606e082f376fcaa2986c275"}, "mark": {"type": "bar", "color": "#e0754a"}, "encoding": {"tooltip": [{"field": "borough", "title": "Borough", "type": "nominal"}, {"field": "avg_price", "format": "$.2f", "title": "Average Price", "type": "quantitative"}], "x": {"field": "borough", "sort": ["Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island"], "title": "NYC Borough", "type": "nominal"}, "y": {"field": "avg_price", "title": "Average Price (USD)", "type": "quantitative"}}, "height": 350, "params": [{"name": "room_type", "bind": {"input": "select", "options": ["All", "Entire home/apt", "Private room", "Shared room"], "name": "Room Type: "}, "value": "All"}], "title": "Average Nightly Price by Borough", "transform": [{"filter": "(datum.room_type === room_type)"}], "width": 500, "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json", "datasets": {"data-0c84ee3d6606e082f376fcaa2986c275": [{"borough": "Bronx", "room_type": "Entire home/apt", "avg_price": 118.78947368421052}, {"borough": "Bronx", "room_type": "Private room", "avg_price": 56.44642857142857}, {"borough": "Bronx", "room_type": "Shared room", "avg_price": 44.0}, {"borough": "Brooklyn", "room_type": "Entire home/apt", "avg_price": 156.2117288651942}, {"borough": "Brooklyn", "room_type": "Private room", "avg_price": 80.51359516616314}, {"borough": "Brooklyn", "room_type": "Shared room", "avg_price": 68.45833333333333}, {"borough": "Manhattan", "room_type": "Entire home/apt", "avg_price": 182.18850574712644}, {"borough": "Manhattan", "room_type": "Private room", "avg_price": 101.42755344418052}, {"borough": "Manhattan", "room_type": "Shared room", "avg_price": 87.4888888888889}, {"borough": "Queens", "room_type": "Entire home/apt", "avg_price": 128.0632911392405}, {"borough": "Queens", "room_type": "Private room", "avg_price": 72.7286432160804}, {"borough": "Queens", "room_type": "Shared room", "avg_price": 87.5}, {"borough": "Staten Island", "room_type": "Entire home/apt", "avg_price": 154.46153846153845}, {"borough": "Staten Island", "room_type": "Private room", "avg_price": 61.833333333333336}, {"borough": "Bronx", "room_type": "All", "avg_price": 71.15384615384616}, {"borough": "Brooklyn", "room_type": "All", "avg_price": 123.04678111587982}, {"borough": "Manhattan", "room_type": "All", "avg_price": 149.22217153284672}, {"borough": "Queens", "room_type": "All", "avg_price": 96.90243902439025}, {"borough": "Staten Island", "room_type": "All", "avg_price": 100.6774193548387}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

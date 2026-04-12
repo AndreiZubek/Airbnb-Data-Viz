@@ -13,29 +13,28 @@
         <p class="eyebrow">Data Visualization Project Group 70</p>
         <h1>An Analysis of Airbnb Pricing in New York City</h1>
         <p class="lead">
-          This project studies how location and room type shape Airbnb prices
-          across NYC. The goal is to identify pricing patterns and reveal how
-          the short term rental market varies by borough.
+          This project looks at how location and room type affect Airbnb prices
+          across New York City. We want to see where prices are highest, where
+          they stay lower, and how those patterns change from one borough to
+          another.
         </p>
       </header>
 
       <section class="panel" id="introduction">
         <h2>Introduction</h2>
         <p>
-          Analyzing Airbnb data in NYC provides insight into how price,
-          neighborhood, location, and room type shape the city&rsquo;s short
-          term housing market. NYC has boroughs and neighborhoods with very
-          different demand patterns, so listing prices vary significantly across
-          space and property type. This analysis highlights how tourism
-          activity, neighborhood popularity, and listing characteristics
-          influence market outcomes.
+          Airbnb prices in New York City are not spread evenly. A listing in
+          Manhattan does not compete in the same market as a listing in the
+          Bronx, and an entire apartment is priced differently from a private
+          or shared room. Looking at these differences helps us understand how
+          location and room type shape the market.
         </p>
         <p>
-          This topic is important because Airbnb has transformed urban tourism
-          and local housing markets. Understanding pricing patterns helps hosts
-          choose better listing strategies, helps travelers compare options, and
-          gives policymakers evidence to evaluate housing and rental impacts in
-          local communities.
+          This topic matters because Airbnb sits in the middle of tourism,
+          travel costs, and local housing. If we can see the pricing patterns
+          more clearly, hosts can make better decisions, travelers can compare
+          options more realistically, and policymakers can look at how short
+          term rentals vary across the city.
         </p>
       </section>
 
@@ -49,19 +48,22 @@
           >
         </p>
         <p>
-          <strong>Data size:</strong> original dataset has 48,895 rows. After
-          cleaning the data, 5,000 rows are used for our visualizations.
+          <strong>Data size:</strong> The original dataset has 48,895 rows.
+          After cleaning and filtering, we used 5,000 rows for the
+          visualizations on this page.
         </p>
         <p>
-          <strong>Main attributes:</strong> id, name, host_id, host_name,
-          neighbourhood_group, neighbourhood, latitude, longitude, room_type,
-          price, minimum_nights, number_of_reviews, last_review,
-          reviews_per_month, calculated_host_listings_count, availability_365.
+          <strong>Main attributes:</strong> The dataset includes listing and
+          host identifiers, borough and neighborhood, latitude and longitude,
+          room type, price, minimum nights, review counts, review frequency,
+          host listing counts, and yearly availability.
         </p>
         <p>
-          <strong>Room types:</strong> Entire home/apt, Private room, Shared room.
+          <strong>Room types:</strong> Entire home/apt, Private room, Shared
+          room.
           <br />
           <strong>Boroughs:</strong> Manhattan, Brooklyn, Queens, Bronx, Staten
+          Island
         </p>
       </section>
 
@@ -69,8 +71,8 @@
         <h2>Visualization 1: Average Price by Borough</h2>
         <p class="instructions">
           <strong>Interaction instructions:</strong> Use the dropdown inside the
-          chart to switch between All, Entire home/apt, Private room, and Shared
-          room. Hover on bars to see exact average price values.
+          chart to switch between all listings, entire homes, private rooms, and
+          shared rooms. Hover over a bar to see the exact average price.
         </p>
         <div id="chartWrap">
           <iframe
@@ -81,49 +83,79 @@
           ></iframe>
         </div>
         <p class="takeaway">
-          <strong>Takeaway:</strong> Manhattan consistently has the highest
-          average prices, while outer boroughs are generally more affordable,
-          especially for private and shared rooms.
+          <strong>Takeaway:</strong> Manhattan has the highest average prices in
+          every view. The outer boroughs are usually cheaper, especially for
+          private rooms and shared rooms.
         </p>
       </section>
 
-      <section class="panel viz placeholder" id="viz2">
-        <h2>Visualization 2 Placeholder</h2>
+      <section class="panel viz" id="viz2">
+        <h2>Visualization 2: Price Patterns by Borough and Room Type</h2>
         <p class="instructions">
-          <strong>Interaction instructions:</strong> Add...
+          <strong>Interaction instructions:</strong> Hover over a cell to see
+          the borough, room type, listing count, and price values. Use the
+          toggle to switch between average price and median price.
         </p>
-        <div class="placeholder-box">Add...</div>
-        <p class="takeaway"><strong>Takeaway:</strong> Add...</p>
+        <div class="chart-controls" id="viz2-controls" aria-label="Price metric controls"></div>
+        <div class="chart-shell">
+          <div id="viz2-chart" class="chart-target" aria-live="polite"></div>
+        </div>
+        <p class="takeaway">
+          <strong>Takeaway:</strong> Looking at borough and room type together
+          makes the price gaps easier to spot. The median view also helps show
+          where a few expensive listings may be pulling the average upward.
+        </p>
       </section>
 
-      <section class="panel viz placeholder" id="viz3">
-        <h2>Visualization 3 Placeholder</h2>
+      <section class="panel viz" id="viz3">
+        <h2>Visualization 3: Price Distribution by Room Type</h2>
         <p class="instructions">
-          <strong>Interaction instructions:</strong> Add...
+          <strong>Interaction instructions:</strong> Hover over each room type
+          to see its quartiles, median price, and listing count. The legend
+          above the chart shows how to read the box plot.
         </p>
-        <div class="placeholder-box">Add...</div>
-        <p class="takeaway"><strong>Takeaway:</strong> Add...</p>
+        <div class="chart-shell">
+          <div id="viz3-chart" class="chart-target" aria-live="polite"></div>
+        </div>
+        <p class="takeaway">
+          <strong>Takeaway:</strong> Entire homes tend to cost more and vary
+          more in price. Private rooms stay lower overall, and shared rooms sit
+          at the bottom of the price range.
+        </p>
       </section>
 
-      <section class="panel viz placeholder" id="viz4">
-        <h2>Visualization 4 Placeholder</h2>
+      <section class="panel viz" id="viz4">
+        <h2>Visualization 4: Availability by Borough and Room Type</h2>
         <p class="instructions">
-          <strong>Interaction instructions:</strong> Add...
+          <strong>Interaction instructions:</strong> Hover over a cell to see
+          the borough, room type, listing count, and average availability over
+          the year. The legend below the chart explains what the colors mean.
         </p>
-        <div class="placeholder-box">Add...</div>
-        <p class="takeaway"><strong>Takeaway:</strong> Add...</p>
+        <div class="chart-shell">
+          <div id="viz4-chart" class="chart-target" aria-live="polite"></div>
+        </div>
+        <p class="takeaway">
+          <strong>Takeaway:</strong> Availability adds a different angle to the
+          pricing story. Some parts of the city keep listings open much longer,
+          which may point to different host strategies or different demand
+          patterns.
+        </p>
       </section>
 
       <section class="panel" id="conclusion">
         <h2>Conclusion</h2>
         <p>
-          Across NYC's boroughs, Airbnb prices follow predictable patterns —
-          location is the biggest factor, and room type creates further price
-          differences. These insights are useful for hosts setting prices,
-          travelers budgeting their stay, and policymakers regulating short term
-          rentals in the city.
+          Overall, location is the strongest driver of Airbnb pricing in New
+          York City, and room type adds another clear layer of difference. The
+          charts also show that price is only part of the story. Availability
+          and price spread matter too. In future work, we could look more
+          closely at neighborhood-level patterns, reviews, or seasonal trends.
         </p>
       </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="scripts/viz2-heatmap.js"></script>
+    <script src="scripts/viz3-distribution.js"></script>
+    <script src="scripts/viz4-availability.js"></script>
   </body>
 </html>

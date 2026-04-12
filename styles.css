@@ -76,8 +76,160 @@ h2 {
   color: #475569;
 }
 
+.chart-controls {
+  margin-bottom: 0.85rem;
+}
+
+.metric-toggle {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.metric-toggle__button {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.52rem 0.82rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.metric-toggle__button:hover,
+.metric-toggle__button:focus-visible {
+  border-color: var(--accent);
+  background: #fff7ed;
+  outline: none;
+}
+
+.metric-toggle__button.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.chart-shell {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 1rem 1rem 0.65rem;
+  overflow-x: auto;
+}
+
+.chart-target {
+  min-width: 640px;
+}
+
+.chart-target svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.heatmap-axis-text {
+  fill: #334155;
+  font-size: 12px;
+}
+
+.heatmap-axis-label,
+.heatmap-legend-title {
+  fill: #475569;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.heatmap-legend text {
+  fill: #475569;
+  font-size: 12px;
+}
+
+.heatmap-cell {
+  stroke: rgba(31, 41, 51, 0.12);
+  stroke-width: 1;
+}
+
+.heatmap-cell-label,
+.heatmap-empty-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+  pointer-events: none;
+}
+
+.heatmap-empty-label {
+  fill: #5b6472;
+  text-shadow: none;
+}
+
+.viz3-box {
+  fill: #f2b26d;
+  stroke: #b45309;
+  stroke-width: 1.2;
+}
+
+.viz3-whisker,
+.viz3-whisker-cap,
+.viz3-median {
+  stroke: #7c2d12;
+  stroke-width: 1.5;
+}
+
+.viz3-median {
+  stroke: #fffdf8;
+  stroke-width: 2;
+}
+
+.viz3-legend-title,
+.viz3-legend-label {
+  fill: #475569;
+  font-size: 12px;
+}
+
+.viz3-legend-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.viz2-tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  gap: 0.2rem;
+  min-width: 170px;
+  background: rgba(31, 41, 51, 0.96);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+  pointer-events: none;
+  font-size: 12px;
+}
+
+.viz2-tooltip strong {
+  font-size: 13px;
+}
+
+.chart-error {
+  margin: 0;
+  padding: 1rem;
+  color: #991b1b;
+  background: #fef2f2;
+  border-radius: 8px;
+}
+
 @media (max-width: 700px) {
   .chart-frame {
     height: 440px;
+  }
+
+  .chart-shell {
+    padding: 0.85rem 0.85rem 0.35rem;
   }
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Airbnb NYC Pricing Analysis</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
@@ -70,27 +71,18 @@
       <section class="panel viz" id="viz1">
         <h2>Visualization 1: Geographic Price Distribution</h2>
         <p class="instructions">
-          <strong>Interaction instructions:</strong> Use the dropdown in the top
-          left to filter listings by borough. Hover over any dot to see the
-          listing name, neighborhood, room type, and nightly price.
+          <strong>Interaction instructions:</strong> Hover over a point to see
+          the listing name, price, room type, and review count. The colors show
+          price categories from budget to luxury.
         </p>
-        <div
-          class="chart-controls"
-          id="viz1-controls"
-          aria-label="Borough filter"
-        ></div>
-        <div class="chart-shell">
-          <iframe src = "viz5_map.html" style="width:100%"; height:1500px; border:0," loading="lazy"></iframe>
+        <div class="chart-shell map-shell">
+          <div id="viz1-map" class="map-target" aria-live="polite"></div>
         </div>
+        <div id="viz1-legend" class="map-legend" aria-hidden="true"></div>
         <p class="takeaway">
-          <strong>Takeaway:</strong> Manhattan is the most expensive borough,
-          with listings along the west side consistently appearing in the
-          darkest red. Brooklyn shows a wide price range, with neighborhoods
-          near Manhattan, like Williamsburg and DUMBO, noticeably more expensive
-          than areas farther east. Queens and the Bronx are quite budget-friendly, 
-          with most listings falling under $100/night. Staten Island has very few 
-          listings compared to the other boroughs, reflecting its limited role in 
-          the NYC short-term rental market.
+          <strong>Takeaway:</strong> The most expensive listings cluster in
+          Manhattan, with another concentration in parts of Brooklyn. The outer
+          boroughs are much lighter overall.
         </p>
       </section>
 
@@ -179,10 +171,11 @@
       </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="scripts/viz1-map.js"></script>
     <script src="scripts/viz2-boxplot.js"></script>
     <script src="scripts/viz3-neighborhood-bars.js"></script>
     <script src="scripts/viz4-scatter.js"></script>
-    <script src="scripts/viz5-map.js"></script>
     <script src="scripts/viz5-heatmap.js"></script>
   </body>
 </html>

@@ -131,6 +131,116 @@ h2 {
   height: auto;
 }
 
+.map-shell {
+  padding: 0;
+  overflow: hidden;
+}
+
+.map-target {
+  width: 100%;
+  min-width: 0;
+  height: 520px;
+}
+
+.map-legend {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.map-legend__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.map-legend__items {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.map-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.map-legend__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  flex: 0 0 auto;
+}
+
+.bar-legend-root {
+  margin-top: 0.75rem;
+}
+
+.bar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1rem;
+  align-items: center;
+  padding: 0.75rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.bar-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.bar-legend__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.bar-axis-text {
+  fill: #334155;
+  font-size: 12px;
+}
+
+.bar-rect {
+  stroke: rgba(15, 23, 42, 0.14);
+  stroke-width: 1;
+}
+
+.scatter-point {
+  transition: fill-opacity 120ms ease, stroke-opacity 120ms ease;
+}
+
+.scatter-point:hover {
+  fill-opacity: 0.72;
+  stroke-opacity: 0.55;
+}
+
+.scatter-trendline {
+  fill: none;
+  stroke: #0f172a;
+  stroke-width: 2.25;
+  stroke-dasharray: 5 5;
+}
+
+.chart-note {
+  margin: 0.7rem 0 0;
+  color: #64748b;
+  font-size: 0.94rem;
+}
+
 .heatmap-axis-text {
   fill: #334155;
   font-size: 12px;
@@ -196,6 +306,25 @@ h2 {
   font-weight: 600;
 }
 
+.leaflet-container {
+  font-family: inherit;
+  background: #eef2f7;
+}
+
+.map-tooltip-leaflet .leaflet-tooltip {
+  border-radius: 8px;
+}
+
+.map-tooltip {
+  display: grid;
+  gap: 0.2rem;
+  font-size: 12px;
+}
+
+.map-tooltip strong {
+  font-size: 13px;
+}
+
 .viz2-tooltip {
   position: absolute;
   top: 0;
@@ -227,6 +356,10 @@ h2 {
 @media (max-width: 700px) {
   .chart-frame {
     height: 440px;
+  }
+
+  .map-target {
+    height: 420px;
   }
 
   .chart-shell {

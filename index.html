@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Airbnb NYC Pricing Analysis</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
@@ -26,9 +25,9 @@
         <p>
           Airbnb prices in New York City are not spread evenly. A listing in
           Manhattan does not compete in the same market as a listing in the
-          Bronx, and an entire apartment is priced differently from a private
-          or shared room. Looking at these differences helps us see how the
-          city’s market changes from place to place.
+          Bronx, and an entire apartment is priced differently from a private or
+          shared room. Looking at these differences helps us see how the city’s
+          market changes from place to place.
         </p>
         <p>
           This topic matters because Airbnb sits in the middle of tourism,
@@ -69,20 +68,26 @@
       </section>
 
       <section class="panel viz" id="viz1">
-        <h2>Visualization 1: Geographic Map of Listings</h2>
+        <h2>Visualization 1: Geographic Price Distribution</h2>
         <p class="instructions">
-          <strong>Interaction instructions:</strong> Hover over a point to see
-          the listing name, price, room type, and review count. The colors show
-          price categories from budget to luxury.
+          <strong>Interaction instructions:</strong> Use the dropdown in the top
+          left to filter listings by borough. Hover over any dot to see the
+          listing name, neighborhood, room type, and nightly price.
         </p>
-        <div class="chart-shell map-shell">
-          <div id="viz1-map" class="map-target" aria-live="polite"></div>
+        <div
+          class="chart-controls"
+          id="viz1-controls"
+          aria-label="Borough filter"
+        ></div>
+        <div class="chart-shell">
+          <div id="viz1-chart" class="chart-target" aria-live="polite"></div>
         </div>
-        <div id="viz1-legend" class="map-legend" aria-hidden="true"></div>
         <p class="takeaway">
-          <strong>Takeaway:</strong> The most expensive listings cluster in
-          Manhattan, with another concentration in parts of Brooklyn. The outer
-          boroughs are much lighter overall.
+          <strong>Takeaway:</strong> Manhattan is the most expensive borough,
+          with listings along the west side consistently appearing in the
+          darkest red. Brooklyn shows a wide price range, with neighborhoods
+          near Manhattan, like Williamsburg and DUMBO, noticeably more expensive
+          than areas farther east.
         </p>
       </section>
 
@@ -106,9 +111,9 @@
       <section class="panel viz" id="viz3">
         <h2>Visualization 3: Average Price by Neighborhood</h2>
         <p class="instructions">
-          <strong>Interaction instructions:</strong> Hover over a bar to see
-          the neighborhood, borough, listing count, and average price. The bars
-          are sorted by price, and the colors separate the boroughs.
+          <strong>Interaction instructions:</strong> Hover over a bar to see the
+          neighborhood, borough, listing count, and average price. The bars are
+          sorted by price, and the colors separate the boroughs.
         </p>
         <div class="chart-shell">
           <div id="viz3-chart" class="chart-target" aria-live="polite"></div>
@@ -124,8 +129,8 @@
       <section class="panel viz" id="viz4">
         <h2>Visualization 4: Price vs Number of Reviews</h2>
         <p class="instructions">
-          <strong>Interaction instructions:</strong> Hover over a dot to see
-          the listing details. The trendline shows the overall direction of the
+          <strong>Interaction instructions:</strong> Hover over a dot to see the
+          listing details. The trendline shows the overall direction of the
           relationship.
         </p>
         <div class="chart-shell">
@@ -158,28 +163,6 @@
         </p>
       </section>
 
-       <section class="panel viz" id="viz4">
-        <h2>Visualization 5: Geographic Price Distribution</h2>
-        <p class="instructions">
-          <strong>Interaction instructions:</strong> Use the dropdown in the top
-          left to filter listings by borough.
-          Hover over any dot to see the listing name, neighborhood, room type,
-          and nightly price. Zoom and pan to explore dense areas like Manhattan
-          and Williamsburg up close.
-        </p>
-        <div class="chart-shell">
-          <div id="viz4-chart" class="chart-target" aria-live="polite"></div>
-        </div>
-        <p class="takeaway">
-          <strong>Takeaway:</strong> Manhattan continues to dominate as the most expensive borough,
-          with listing along the west side consistently appearing in the darkest red. Brooklyn shows 
-          the widest price range of any borough, with neighborhoods near Manhattan, like Williamsburg and
-          DUMBO, being noticeably more expensive. On the other hand, listings further east are much more affordable.
-          Queens and the Bronx are quite budget-friendly, with most listings falling under $100/night. 
-          It's interesting to see that Staten Island has very few listings compared to the other boroughs,
-          reflecting its limited role in the NYC short-term rental market.
-        </p>
-      </section>
       <section class="panel" id="conclusion">
         <h2>Conclusion</h2>
         <p>
@@ -187,17 +170,16 @@
           City, but room type, neighborhood, and review activity all add useful
           context. The charts show that price is not just one number. It shifts
           by place, by listing type, and by how the market is behaving around
-          each listing. In future work, we would look more closely at seasonality,
-          reviews, and neighborhood-level patterns.
+          each listing. In future work, we would look more closely at
+          seasonality, reviews, and neighborhood-level patterns.
         </p>
       </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="scripts/viz1-map.js"></script>
     <script src="scripts/viz2-boxplot.js"></script>
     <script src="scripts/viz3-neighborhood-bars.js"></script>
     <script src="scripts/viz4-scatter.js"></script>
+    <script src="scripts/viz5-map.js"></script>
     <script src="scripts/viz5-heatmap.js"></script>
   </body>
 </html>

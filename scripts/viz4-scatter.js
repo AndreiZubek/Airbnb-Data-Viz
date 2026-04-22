@@ -6,135 +6,263 @@ function formatViz4Currency(value) {
   }).format(value);
 }
 
-function linearRegression(points) {
-  const n = points.length;
-  const sumX = d3.sum(points, (d) => d.reviews);
-  const sumY = d3.sum(points, (d) => d.price);
-  const sumXY = d3.sum(points, (d) => d.reviews * d.price);
-  const sumXX = d3.sum(points, (d) => d.reviews * d.reviews);
-  const denominator = n * sumXX - sumX * sumX;
+function buildPriceRangeData(points) {
+  const ranges = [
+    { min: 0, max: 100, label: "$0–$100" },
+    { min: 100, max: 200, label: "$100–$200" },
+    { min: 200, max: 350, label: "$200–$350" },
+    { min: 350, max: 1000, label: "$350+" },
+  ];
 
-  if (!denominator) {
-    return { slope: 0, intercept: d3.mean(points, (d) => d.price) || 0 };
-  }
-
-  const slope = (n * sumXY - sumX * sumY) / denominator;
-  const intercept = (sumY - slope * sumX) / n;
-  return { slope, intercept };
+  return ranges.map((range) => {
+    const inRange = points.filter(
+      (p) => p.price >= range.min && p.price < range.max,
+    );
+    return {
+      label: range.label,
+      avgReviews: inRange.length > 0 ? d3.mean(inRange, (d) => d.reviews) : 0,
+      count: inRange.length,
+      medianReviews:
+        inRange.length > 0 ? d3.median(inRange.map((d) => d.reviews)) : 0,
+    };
+  });
 }
 
-function renderViz4Scatter(chartRoot, shell, points) {
+function renderViz4Comparison(chartRoot, shell, points) {
   chartRoot.innerHTML = "";
 
   const width = Math.max(740, Math.min(chartRoot.clientWidth || 860, 980));
-  const height = 460;
-  const margin = { top: 26, right: 28, bottom: 58, left: 76 };
-  const svg = d3.select(chartRoot).append("svg").attr("viewBox", `0 0 ${width} ${height}`);
+  const containerHeight = 480;
+  const margin = { top: 16, right: 20, bottom: 48, left: 60 };
+  const chartHeight = containerHeight - 40;
 
-  const x = d3
+  const container = d3
+    .select(chartRoot)
+    .append("div")
+    .style("display", "flex")
+    .style("flex-direction", "row")
+    .style("gap", "12px");
+
+  const leftSvg = container
+    .append("svg")
+    .style("flex", "1")
+    .attr("viewBox", `0 0 ${width / 2} ${chartHeight}`);
+
+  const xHist = d3
     .scaleLinear()
     .domain([0, d3.max(points, (d) => d.reviews) * 1.05])
     .nice()
-    .range([margin.left, width - margin.right]);
+    .range([margin.left, width / 2 - margin.right]);
 
-  const y = d3
+  const yHist = d3
     .scaleLinear()
-    .domain([0, d3.max(points, (d) => d.price) * 1.08])
+    .domain([0, d3.max(points, (d) => d.price) * 1.05])
     .nice()
-    .range([height - margin.bottom, margin.top]);
+    .range([chartHeight - margin.bottom, margin.top]);
 
-  const tooltip = shell.querySelector(".scatter-tooltip") || document.createElement("div");
-  if (!tooltip.parentNode) {
-    tooltip.className = "viz2-tooltip scatter-tooltip";
-    tooltip.hidden = true;
-    shell.appendChild(tooltip);
-  }
+  // 2D bins for density
+  const binWidth = 5; // reviews per bin
+  const binHeight = 50; // price per bin
+  const bins = new Map();
 
-  svg
+  points.forEach((point) => {
+    const xBin = Math.floor(point.reviews / binWidth);
+    const yBin = Math.floor(point.price / binHeight);
+    const key = `${xBin},${yBin}`;
+    bins.set(key, (bins.get(key) || 0) + 1);
+  });
+
+  const maxBinCount = Math.max(...Array.from(bins.values()));
+  const colorScale = d3
+    .scaleLinear()
+    .domain([0, maxBinCount])
+    .range(["#fef3c7", "#c2410c"]);
+
+  const binData = Array.from(bins.entries()).map(([key, count]) => {
+    const [xBin, yBin] = key.split(",").map(Number);
+    return {
+      x: xBin * binWidth,
+      y: yBin * binHeight,
+      count,
+      xBin,
+      yBin,
+    };
+  });
+
+  leftSvg
     .append("g")
-    .attr("transform", `translate(0, ${height - margin.bottom})`)
-    .call(d3.axisBottom(x).ticks(6))
-    .call((group) => group.select(".domain").remove())
-    .call((group) => group.selectAll("text").attr("class", "heatmap-axis-text"));
+    .selectAll("rect")
+    .data(binData)
+    .join("rect")
+    .attr("x", (d) => xHist(d.x))
+    .attr("y", (d) => yHist(d.y + binHeight))
+    .attr("width", (d) => Math.max(1, xHist(d.x + binWidth) - xHist(d.x)))
+    .attr("height", (d) => Math.max(1, yHist(d.y) - yHist(d.y + binHeight)))
+    .attr("fill", (d) => colorScale(d.count))
+    .attr("stroke", "#f5f5f5")
+    .attr("stroke-width", 0.5)
+    .on("mouseover", (event, d) => {
+      const tooltip =
+        shell.querySelector(".scatter-tooltip") ||
+        document.createElement("div");
+      if (!tooltip.parentNode) {
+        tooltip.className = "viz2-tooltip scatter-tooltip";
+        shell.appendChild(tooltip);
+      }
+      tooltip.innerHTML = `<strong>Density cluster</strong><span>${d.count} listings</span><span>Avg price: ${formatViz4Currency((d.yBin + 0.5) * binHeight)}</span><span>Avg reviews: ~${((d.xBin + 0.5) * binWidth).toFixed(0)}</span>`;
+      tooltip.hidden = false;
+      const bounds = shell.getBoundingClientRect();
+      const left = Math.min(
+        Math.max(8, event.clientX - bounds.left + 16),
+        bounds.width - tooltip.offsetWidth - 8,
+      );
+      const top = Math.min(
+        Math.max(8, event.clientY - bounds.top + 16),
+        bounds.height - tooltip.offsetHeight - 8,
+      );
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    })
+    .on("mouseleave", () => {
+      const tooltip = shell.querySelector(".scatter-tooltip");
+      if (tooltip) tooltip.hidden = true;
+    });
 
-  svg
+  leftSvg
+    .append("g")
+    .attr("transform", `translate(0, ${chartHeight - margin.bottom})`)
+    .call(d3.axisBottom(xHist).ticks(5))
+    .call((g) => g.select(".domain").remove())
+    .call((g) => g.selectAll("text").attr("class", "heatmap-axis-text"));
+
+  leftSvg
     .append("g")
     .attr("transform", `translate(${margin.left}, 0)`)
-    .call(d3.axisLeft(y).ticks(6).tickFormat((d) => `$${d}`))
-    .call((group) => group.select(".domain").remove())
-    .call((group) => group.selectAll("text").attr("class", "heatmap-axis-text"));
+    .call(
+      d3
+        .axisLeft(yHist)
+        .ticks(5)
+        .tickFormat((d) => `$${d}`),
+    )
+    .call((g) => g.select(".domain").remove())
+    .call((g) => g.selectAll("text").attr("class", "heatmap-axis-text"));
 
-  svg
+  leftSvg
     .append("text")
     .attr("class", "heatmap-axis-label")
-    .attr("x", (margin.left + width - margin.right) / 2)
-    .attr("y", height - 12)
+    .attr("x", (margin.left + width / 2 - margin.right) / 2)
+    .attr("y", chartHeight - 12)
     .attr("text-anchor", "middle")
-    .text("Number of reviews");
+    .text("Reviews");
 
-  svg
+  leftSvg
     .append("text")
     .attr("class", "heatmap-axis-label")
-    .attr("x", -((margin.top + height - margin.bottom) / 2))
+    .attr("x", -((margin.top + chartHeight - margin.bottom) / 2))
     .attr("y", 18)
     .attr("text-anchor", "middle")
     .attr("transform", "rotate(-90)")
     .text("Price (USD)");
 
-  svg
+  const priceData = buildPriceRangeData(points);
+  const rightSvg = container
+    .append("svg")
+    .style("flex", "1")
+    .attr("viewBox", `0 0 ${width / 2} ${chartHeight}`);
+
+  const xBar = d3
+    .scaleBand()
+    .domain(priceData.map((d) => d.label))
+    .range([margin.left, width / 2 - margin.right])
+    .padding(0.3);
+
+  const yBar = d3
+    .scaleLinear()
+    .domain([0, d3.max(priceData, (d) => d.avgReviews) * 1.15])
+    .nice()
+    .range([chartHeight - margin.bottom, margin.top]);
+
+  rightSvg
     .append("g")
-    .selectAll("circle")
-    .data(points)
-    .join("circle")
-    .attr("class", "scatter-point")
-    .attr("cx", (d) => x(d.reviews))
-    .attr("cy", (d) => y(d.price))
-    .attr("r", 3.4)
-    .attr("fill", "#d97706")
-    .attr("fill-opacity", 0.38)
-    .attr("stroke", "#9a3412")
-    .attr("stroke-opacity", 0.25)
-    .on("mousemove", (event, datum) => {
-      tooltip.innerHTML = `
-        <strong>${datum.name || "Listing"}</strong>
-        <span>${datum.neighbourhood_group} · ${datum.room_type}</span>
-        <span>Price: ${formatViz4Currency(datum.price)}</span>
-        <span>Reviews: ${datum.reviews}</span>
-      `;
+    .selectAll("rect")
+    .data(priceData)
+    .join("rect")
+    .attr("x", (d) => xBar(d.label))
+    .attr("y", (d) => yBar(d.avgReviews))
+    .attr("width", xBar.bandwidth())
+    .attr("height", (d) => chartHeight - margin.bottom - yBar(d.avgReviews))
+    .attr("fill", "#2563eb")
+    .attr("fill-opacity", 0.8)
+    .on("mouseover", (event, d) => {
+      const tooltip =
+        shell.querySelector(".scatter-tooltip") ||
+        document.createElement("div");
+      if (!tooltip.parentNode) {
+        tooltip.className = "viz2-tooltip scatter-tooltip";
+        shell.appendChild(tooltip);
+      }
+      tooltip.innerHTML = `<strong>${d.label}</strong><span>${d.count} listings</span><span>Avg reviews: ${d.avgReviews.toFixed(1)}</span><span>Median reviews: ${d.medianReviews.toFixed(0)}</span>`;
       tooltip.hidden = false;
       const bounds = shell.getBoundingClientRect();
-      const left = Math.min(Math.max(8, event.clientX - bounds.left + 16), bounds.width - tooltip.offsetWidth - 8);
-      const top = Math.min(Math.max(8, event.clientY - bounds.top + 16), bounds.height - tooltip.offsetHeight - 8);
+      const left = Math.min(
+        Math.max(8, event.clientX - bounds.left + 16),
+        bounds.width - tooltip.offsetWidth - 8,
+      );
+      const top = Math.min(
+        Math.max(8, event.clientY - bounds.top + 16),
+        bounds.height - tooltip.offsetHeight - 8,
+      );
       tooltip.style.left = `${left}px`;
       tooltip.style.top = `${top}px`;
     })
     .on("mouseleave", () => {
-      tooltip.hidden = true;
+      const tooltip = shell.querySelector(".scatter-tooltip");
+      if (tooltip) tooltip.hidden = true;
     });
 
-  const regression = linearRegression(points);
-  const xDomain = x.domain();
-  const lineData = xDomain.map((xValue) => ({
-    x: xValue,
-    y: regression.slope * xValue + regression.intercept,
-  }));
-
-  svg
-    .append("path")
-    .datum(lineData)
-    .attr("class", "scatter-trendline")
-    .attr(
-      "d",
-      d3
-        .line()
-        .x((d) => x(d.x))
-        .y((d) => y(d.y))
-        .curve(d3.curveMonotoneX),
+  rightSvg
+    .append("g")
+    .attr("transform", `translate(0, ${chartHeight - margin.bottom})`)
+    .call(d3.axisBottom(xBar))
+    .call((g) => g.select(".domain").remove())
+    .call((g) =>
+      g
+        .selectAll("text")
+        .attr("class", "heatmap-axis-text")
+        .style("font-size", "11px"),
     );
+
+  rightSvg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, 0)`)
+    .call(d3.axisLeft(yBar).ticks(5))
+    .call((g) => g.select(".domain").remove())
+    .call((g) => g.selectAll("text").attr("class", "heatmap-axis-text"));
+
+  rightSvg
+    .append("text")
+    .attr("class", "heatmap-axis-label")
+    .attr("x", (margin.left + width / 2 - margin.right) / 2)
+    .attr("y", chartHeight - 12)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "12px")
+    .text("Price Range");
+
+  rightSvg
+    .append("text")
+    .attr("class", "heatmap-axis-label")
+    .attr("x", -((margin.top + chartHeight - margin.bottom) / 2))
+    .attr("y", 18)
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .text("Average Reviews");
 
   const note = document.getElementById("viz4-note");
   if (note) {
-    note.textContent = "The trendline is slightly downward, so the relationship between price and review count is weak.";
+    note.innerHTML = `
+      <strong>Left chart (heatmap):</strong> Darker areas show clusters of listings. Most cluster in the 0–30 reviews range regardless of price.
+      <strong>Right chart (bars):</strong> Cheaper listings actually get slightly more reviews on average, which suggests that frequent travelers book budget options more often.
+    `;
   }
 }
 
@@ -151,14 +279,21 @@ async function initViz4Scatter() {
     reviews: Number(row.number_of_reviews),
   }));
 
-  const points = rows.filter((row) => Number.isFinite(row.price) && row.price > 0 && Number.isFinite(row.reviews) && row.reviews >= 0);
-  renderViz4Scatter(chartRoot, shell, points);
+  const points = rows.filter(
+    (row) =>
+      Number.isFinite(row.price) &&
+      row.price > 0 &&
+      Number.isFinite(row.reviews) &&
+      row.reviews >= 0,
+  );
+  renderViz4Comparison(chartRoot, shell, points);
 }
 
 initViz4Scatter().catch((error) => {
   const chartRoot = document.getElementById("viz4-chart");
   if (chartRoot) {
-    chartRoot.innerHTML = '<p class="chart-error">Failed to load scatter plot data.</p>';
+    chartRoot.innerHTML =
+      '<p class="chart-error">Failed to load comparison data.</p>';
   }
   console.error(error);
 });

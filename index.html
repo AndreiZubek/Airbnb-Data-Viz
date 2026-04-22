@@ -125,22 +125,19 @@
       </section>
 
       <section class="panel viz" id="viz4">
-        <h2>Visualization 4: Price vs Number of Reviews</h2>
+        <h2>Visualization 4: Pricing Patterns in Guest Engagement</h2>
         <p class="instructions">
-          <strong>Interaction instructions:</strong> Hover over a dot to see the
-          listing details. The trendline shows the overall direction of the
-          relationship.
+          <strong>Interaction instructions:</strong> 
+          <strong>Left chart (density heatmap):</strong> Hover to see clusters of listings by price and review count. Darker = more listings.
+          <strong>Right chart (bars):</strong> Hover to see average and median reviews for each price range.
         </p>
         <div class="chart-shell">
           <div id="viz4-chart" class="chart-target" aria-live="polite"></div>
         </div>
         <p class="chart-note" id="viz4-note">
-          The trendline gives a quick read on whether pricier listings tend to
-          get more or fewer reviews.
         </p>
         <p class="takeaway">
-          <strong>Takeaway:</strong> The relationship is weak and slightly
-          negative, so more reviews do not really line up with higher prices.
+          <strong>Takeaway:</strong> Price isn't the only factor that drives reviews. Budget listings ($0–$100) actually accumulate more reviews on average, which suggests that frequent travelers book budget options more often. High prices don't really have an impact on a user's decision to leave a review. Instead, convenience and location seem to be more important factors.
         </p>
       </section>
 
@@ -171,6 +168,42 @@
           each listing. In future work, we would look more closely at
           seasonality, reviews, and neighborhood-level patterns.
         </p>
+      </section>
+
+      <section class="panel" id="references">
+        <h2>References</h2>
+        <p>
+          <strong>Study 1:</strong>
+          <a
+            href="https://www.researchgate.net/publication/395467883_A_Decade_of_NYC's_Airbnb_Data-Driven_Perspectives_on_Hosting_Patterns_and_Market_Dynamics"
+            >A Decade of NYC’s Airbnb Data-Driven Perspectives on Hosting
+            Patterns and Market Dynamics</a
+          >
+          <br />
+          <ul>
+          <li>
+            This study of Airbnb listings in New York City (2011–2023)
+            demonstrates how pricing, room type, host activity, spatial
+            distribution, and guest engagement have changed over time, which
+            will help us establish a baseline for the kinds of trends we will be
+            exploring.
+          </li>
+          </ul>
+        </p>
+<p>
+          <strong>Study 2:</strong>
+          <a
+            href="https://furmancenter.org/files/Airbnb_Usage_Across_New_York_City.pdf"
+            >Airbnb Usage Across New York City (Furman Center)</a
+          >
+          <br />
+          <ul>
+          <li>
+            This study talks about how Airbnb usage and profitability vary across NYC’s neighborhoods, which will give us a good background since we want to look into the variation and patterns in price across the boroughs and neighborhoods.
+          </li>
+          </ul>
+        </p>
+        
       </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>

@@ -3,7 +3,7 @@ const VIZ3_BOROUGH_COLORS = {
   Brooklyn: "#d97706",
   Manhattan: "#0f766e",
   Queens: "#2563eb",
-  "Staten Island": "#ca8a04",
+  "Staten Island": "#e63c3c",
 };
 
 const VIZ3_TOP_NEIGHBORHOODS = 20;

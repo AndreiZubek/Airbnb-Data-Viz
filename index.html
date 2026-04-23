@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Airbnb NYC Pricing Analysis</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
@@ -79,9 +75,15 @@
           price categories from budget to luxury.
         </p>
         <div class="chart-shell map-shell">
-          <div id="viz1-map" class="map-target" aria-live="polite"></div>
+          <iframe
+            src="viz1_map.html"
+            width="100%"
+            height="720"
+            style="border:none"
+            title="NYC Airbnb Listings Map"
+          >
+            </iframe>
         </div>
-        <div id="viz1-legend" class="map-legend" aria-hidden="true"></div>
         <p class="takeaway">
           <strong>Takeaway:</strong> The most expensive listings cluster in
           Manhattan, with another concentration in parts of Brooklyn. The outer
@@ -207,8 +209,6 @@
       </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="scripts/viz1-map.js"></script>
     <script src="scripts/viz2-boxplot.js"></script>
     <script src="scripts/viz3-neighborhood-bars.js"></script>
     <script src="scripts/viz4-scatter.js"></script>

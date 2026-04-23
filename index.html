@@ -78,7 +78,8 @@
         <p class="instructions">
           <strong>Interaction instructions:</strong> Hover over a point to see
           the listing name, price, room type, and review count. The colors show
-          price categories from budget to luxury.
+          price categories from budget to luxury. Use the dropdown menu to explore
+          listings by borough.
         </p>
         <div class="chart-shell map-shell">
           <iframe
@@ -91,9 +92,21 @@
             </iframe>
         </div>
         <p class="takeaway">
-          <strong>Takeaway:</strong> The most expensive listings cluster in
-          Manhattan, with another concentration in parts of Brooklyn. The outer
-          boroughs are much lighter overall.
+          <strong>Takeaway:</strong> This visualization maps Airbnb listings across 
+          New York City using their geographic coordinates (latitude and longitude),
+          with each point representing a listing. The color of each point represents
+          price, ranging from lower-priced listings (yellow) to higher-priced listings
+          (red).
+          We see a strong concentration of listings in Manhattan and parts of Brooklyn, 
+          with far fewer listings in the outer boroughs. The darkest reds, which represent the 
+          highest prices, are heavily clustered in central Manhattan, especially in dense urban 
+          areas. Brooklyn shows a mix of mid-to-high price listings, particularly in neighborhoods 
+          closer to Manhattan. Queens, the Bronx, and Staten Island show fewer listings overall 
+          and mostly lighter colors, indicating lower prices. 
+          This visualization clearly shows that Airbnb pricing in New York City is highly
+          location-dependent. Manhattan dominates both in density and price level, while
+          Brooklyn serves as a secondary high-demand market. On the other hand, the outer 
+          boroughs are significantly more affordable and less densely listed.
         </p>
       </section>
 
@@ -108,9 +121,24 @@
           <div id="viz2-chart" class="chart-target" aria-live="polite"></div>
         </div>
         <p class="takeaway">
-          <strong>Takeaway:</strong> Entire homes are pricier and more spread
-          out. Private rooms and shared rooms sit lower, and their price ranges
-          are tighter.
+          <strong>Takeaway:</strong> This visualization compares Airbnb prices 
+          across three room types in New York City: entire homes/apartments, 
+          private rooms, and shared rooms. It uses a box plot to show the distribution 
+          of prices, including the median, spread (quartiles), and variability within 
+          each category.
+          
+          Entire homes/apartments are clearly the most expensive option,
+          with the highest median price and the widest range of values, 
+          stretching from relatively affordable listings to very high-end stays.
+          Private rooms sit in the middle, with a lower median price and a tighter 
+          spread compared to entire homes. Shared rooms are the most affordable overall,
+          with the lowest median price and the smallest overall range, indicating more 
+          consistent pricing in that category.
+
+          Room type strongly structures the Airbnb pricing market in NYC. Entire homes 
+          function as a premium, highly variable product, while private rooms offer a 
+          mid-range balance of cost and privacy. Shared rooms represent the lowest-cost, 
+          most standardized option for travelers.
         </p>
       </section>
 
@@ -126,9 +154,24 @@
         </div>
         <div id="viz3-legend" class="bar-legend-root" aria-hidden="true"></div>
         <p class="takeaway">
-          <strong>Takeaway:</strong> The priciest neighborhoods are mostly in
-          Manhattan, but the borough colors also show smaller pockets of higher
-          prices elsewhere.
+          <strong>Takeaway:</strong> This visualization highlights the average nightly
+          price for Airbnb listings across New York City’s most expensive neighborhoods.
+          It uses a color-coded bar chart to compare costs across the five boroughs,
+          allowing travelers to identify which specific areas command a premium. 
+
+          Tottenville (Staten Island) and Bayside (Queens) emerge as the most expensive
+          neighborhoods on average, with prices reaching the $300 mark. While Manhattan
+          (teal) dominates the list with the highest number of premium-priced neighborhoods,
+          its individual averages like Greenwich Village ($192) or the Financial District ($170)
+          are actually lower than the top outliers in other boroughs. Brooklyn and the Bronx also
+          make strong appearances, with areas like DUMBO and Riverdale offering high-end stays that
+          rival Manhattan's pricing.
+
+          The takeaway for travelers is that premium pricing is not exclusive to Manhattan.
+          While Manhattan offers the most "luxury" neighborhoods in total, the most expensive nightly
+          rates are currently found in specific pockets of Staten Island and Queens. For those seeking 
+          a balance of popularity and price, neighborhoods like Greenwich Village provide a mid-to-high 
+          range option with a significant number of available listings.
         </p>
       </section>
 
@@ -145,7 +188,22 @@
         <p class="chart-note" id="viz4-note">
         </p>
         <p class="takeaway">
-          <strong>Takeaway:</strong> Price isn't the only factor that drives reviews. Budget listings ($0–$100) actually accumulate more reviews on average, which suggests that frequent travelers book budget options more often. High prices don't really have an impact on a user's decision to leave a review. Instead, convenience and location seem to be more important factors.
+          <strong>Takeaway:</strong>This visualization explores the relationship 
+          between Airbnb pricing and guest reviews in New York City. Using a density
+          heatmap and a bar chart, it illustrates how often listings at different price
+          points are actually booked and reviewed.
+
+          The density heatmap (left) reveals that the vast majority of listings cluster 
+          at the lower end of the review scale (0–30 reviews), regardless of price. However, 
+          the bar chart (right) shows a clear trend: as the price increases, the average number
+          of reviews decreases. Listings in the $0–$100 range boast the highest average review 
+          count (roughly 70 reviews), while premium listings priced over $350 see significantly
+          less review activity.
+
+          Pricing and popularity are inversely linked in the NYC market. For travelers, this 
+          suggests that budget-friendly options are the most frequently cycled and tested by the
+          community. While high-end listings offer luxury, they are booked less often, meaning they 
+          accumulate the "social proof" of guest reviews much more slowly than their budget counterparts.
         </p>
       </section>
 
@@ -171,19 +229,52 @@
             width="100%" height="400" style="border:none; display:none"></iframe>
         </div>
         <p class="takeaway">
-          <strong>Takeaway:</strong> This heatmap shows important patterns across NYC's Airbnb market. Manhattan and entire homes consistently have the highest prices, while shared rooms remain the most affordable option citywide. Availability tells a different story: entire homes are booked more frequently (lower availability), suggesting higher demand, while private rooms offer more consistent availability across boroughs.
+          <strong>Takeaway:</strong> This duo of heatmaps illustrates the relationship
+          between cost and availability for Airbnb listings across New York City’s boroughs.
+          By comparing these two metrics, travelers can see where the highest demand meets the
+          highest prices.
+
+          The Price Heatmap confirms that Manhattan and entire homes/apartments command the
+          highest rates citywide, while shared rooms consistently offer the lowest barrier to 
+          entry. However, the Availability Heatmap reveals a critical trade-off: many of those 
+          high-cost areas, particularly in Manhattan and Brooklyn, show significantly lower 
+          availability (indicated by the lighter yellow/green shades). This suggests that despite
+          the premium price, demand for entire homes in central locations remains high, leaving 
+          fewer dates open for travelers.
+
+          The takeaway for travelers is a "price vs. planning" balance. If you are looking for an 
+          entire home in Manhattan or Brooklyn, you’ll likely need to book much further in advance 
+          due to low availability and high costs. Conversely, if you're planning a last-minute trip,
+          private rooms or listings in The Bronx and Staten Island offer more consistent year-round 
+          availability and a more budget-friendly price point.
+
+          
         </p>
       </section>
 
       <section class="panel" id="conclusion">
         <h2>Conclusion</h2>
         <p>
-          Overall, location is the biggest driver of Airbnb pricing in New York
-          City, but room type, neighborhood, and review activity all add useful
-          context. The charts show that price is not just one number. It shifts
-          by place, by listing type, and by how the market is behaving around
-          each listing. In future work, we would look more closely at
-          seasonality, reviews, and neighborhood-level patterns.
+          Across these five visualizations, a clear narrative emerges: location and room type
+          are the primary architects of the Airbnb market in New York City. Manhattan consistently
+          sets the price ceiling across all categories, and opting for an entire home remains the 
+          most significant cost driver for travelers, regardless of which borough they call home.
+          
+          However, the data reveals deeper nuances that avid travelers should note. 
+          Neighborhood-level analysis shows that "hidden gems" in the outer boroughs, driven by
+          local attractions and transit access, can rival Manhattan prices. Furthermore,
+          the inverse relationship between price and review volume suggests that the city’s 
+          most active community isn’t found in luxury stays, but in the budget sector, where
+          high booking turnover creates a robust landscape of peer-reviewed options.
+          
+          Looking ahead, while this 2019 data gives us a great starting point, the NYC rental
+          market has changed a lot since then. Future studies should look at how the pandemic 
+          and the rise of remote work have shifted prices and where people choose to stay. New,
+          stricter city laws have also limited the number of available Airbnbs, which is a huge 
+          factor to consider. Adding local details like neighborhood demographics could also help 
+          explain why some blocks are so much pricier than others. Ultimately, while Manhattan is
+          the go-to for luxury, the real heart of the NYC market is in the affordable, highly-rated
+          listings that travelers rely on across all five boroughs.
         </p>
       </section>
 
